@@ -1,39 +1,83 @@
-import { Text, View, StyleSheet, Image } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  FlatList,
+  ScrollView,
+} from "react-native";
 import { Link } from "expo-router";
 import { CustomeCard } from "@/components";
+
 export default function Index() {
+  const data = [
+    {
+      id: "1",
+      label: "Personal Details",
+      path: "/personal",
+      description: "Your personal information", // Tambahkan description
+    },
+    {
+      id: "2",
+      label: "Experience",
+      path: "/experience",
+      description: "Your work experience", // Tambahkan description
+    },
+    {
+      id: "3",
+      label: "Education",
+      path: "/education",
+      description: "Your educational background", // Tambahkan description
+    },
+    {
+      id: "4",
+      label: "Certificate",
+      path: "/certificate",
+      description: "Your certificates", // Tambahkan description
+    },
+  ];
+
   return (
-    <View>
-      <View style={style.container}>
-        <Image
-          style={style.tinyLogo}
-          source={{
-            uri: "https://reactnative.dev/img/tiny_logo.png",
-          }}
-        />
-        <Text style={style.textName}>Suryo Sukma Jakti</Text>
-        <Text style={[style.subText, style.textWhite]}>
-          jaktisuryo@gmail.com
-        </Text>
-        <Link href="/experience" style={[style.subText, style.textWhiteLink]}>
-          Experience
-        </Link>
+    <ScrollView>
+      <View>
+        <View style={styles.container}>
+          <Image
+            style={styles.tinyLogo}
+            source={{
+              uri: "https://reactnative.dev/img/tiny_logo.png",
+            }}
+          />
+          <Text style={styles.textName}>Tirto Belanga</Text>
+          <Text style={[styles.subText, styles.textWhite]}>
+            tirtobelanga23@gmail.com
+          </Text>
+        </View>
+
+        {/* Bagian untuk menampilkan kartu */}
+        <View style={styles.border}>
+          <FlatList
+            data={data}
+            renderItem={({ item }) => (
+              <CustomeCard
+                nama={item.label}
+                description={item.description} // Pastikan description ada
+                path={item.path}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
       </View>
-      <View style={style.border}>
-        <CustomeCard />
-        <CustomeCard />
-        <CustomeCard />
-      </View>
-    </View>
+    </ScrollView>
   );
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     backgroundColor: "#0E627C",
     height: 250,
     borderBottomEndRadius: 32,
-    borderEndStartRadius: 32,
+    borderBottomStartRadius: 32,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -56,7 +100,7 @@ const style = StyleSheet.create({
     width: 100,
   },
   border: {
-    top: -25,
+    marginTop: -25,
     paddingLeft: 20,
     paddingRight: 25,
   },
